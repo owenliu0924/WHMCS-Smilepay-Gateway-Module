@@ -1,2 +1,3 @@
-# WHMCS-Smilepay-Gateway-Module
- Smilepay module for WHMCS.
+# WHMCS-Smilepay-Gateway-Module [WIP]
+
+Smilepay module for WHMCS.
