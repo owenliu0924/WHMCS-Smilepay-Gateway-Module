@@ -2,9 +2,11 @@
 
 /**
  * Smilepay Gateway Module
+ * 
  * @author owenliu0924
  * @copyright 2024 SHD Cloud
- * @see https://github.com/owenliu0924/
+ * @see https://github.com/owenliu0924/WHMCS-Smilepay-Gateway-Module/
+ * 
  * 有沒有覺得變數名稱很亂？
  * 我也這麼覺得，但我是為了方便完全根據文檔的參數來寫
  */
