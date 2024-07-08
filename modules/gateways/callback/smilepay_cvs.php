@@ -9,41 +9,56 @@ if (!$gateway["type"])
     die("Module Not Activated");
 function calculateMidSmilepay($verifyParam, $amount, $smseid)
 {
-    $a = str_pad($verifyParam, 4, '0', STR_PAD_LEFT);
-    $b = str_pad($amount, 8, '0', STR_PAD_LEFT);
-    $c = substr($smseid, -4);
-    $c = preg_replace('/[^0-9]/', '9', $c);
-    $d = $a . $b . $c;
-    $e = 0;
-    for ($i = 1; $i < strlen($d); $i += 2) {
-        $e += intval($d[$i]);
+    $mid = $verifyParam;
+    $r_all = substr($smseid, -4, 4);
+    $r1 = substr($r_all, 0, 1);
+    $r2 = substr($r_all, 1, 1);
+    $r3 = substr($r_all, 2, 1);
+    $r4 = substr($r_all, 3, 1);
+    if (!is_numeric($r1)) {
+        $r1 = "9";
     }
-    $e *= 3;
-    $f = 0;
-    for ($i = 0; $i < strlen($d); $i += 2) {
-        $f += intval($d[$i]);
+    if (!is_numeric($r2)) {
+        $r2 = "9";
     }
-    $f *= 9;
-    return $e + $f;
+    if (!is_numeric($r3)) {
+        $r3 = "9";
+    }
+    if (!is_numeric($r4)) {
+        $r4 = "9";
+    }
+    $str0 = $r1 . $r2 . $r3 . $r4;
+    $str1 = str_pad($amount, 8, '0', STR_PAD_LEFT);
+    $str = $mid . $str1 . $str0;
+    $odd = $even = 0;
+    for ($i = 0; $i < 16; $i++) {
+        if ($i % 2 == 0) {
+            $even = $even + substr($str, $i, 1);
+        }
+        if ($i % 2 == 1) {
+            $odd = $odd + substr($str, $i, 1);
+        }
+    }
+    $mid = $even * 9 + $odd * 3;
+    return $mid;
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postData = $_POST;
     $a = '';
     $calculatedMidSmilepay = calculateMidSmilepay($gateway['verify_param'], $postData['Amount'], $postData['Smseid']);
-    if ($calculatedMidSmilepay !== $postData['Mid_smilepay']) {
+    if ($calculatedMidSmilepay != $postData['Mid_smilepay']) {
         logTransaction($gateway["name"], $postData, "Invalid Mid_smilepay");
         die("Invalid callback");
     }
 
     $invoiceId = $postData['Data_id'];
-    $transactionId = $postData['Payment_no'];
+    $transactionId = $postData['Smseid'];
     $paymentAmount = $postData['Amount'];
-    $paymentSuccess = ($postData['Response_id'] == '1');
 
     $invoiceId = checkCbInvoiceID($invoiceId, $gateway["name"]);
     checkCbTransID($transactionId);
 
-    if ($paymentSuccess) {
+    if ($transactionId) {
         addInvoicePayment(
             $invoiceId,
             $transactionId,
