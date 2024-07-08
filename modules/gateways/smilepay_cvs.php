@@ -51,6 +51,13 @@ function smilepay_cvs_config()
             'Default' => 'RL_OK',
             'Description' => '設定回調成功時的回應狀態碼',
         ),
+        'verify_param' => array(
+            'FriendlyName' => '商家驗證參數',
+            'Type' => 'text',
+            'Size' => '4',
+            'Default' => '0000',
+            'Description' => '請輸入 Smilepay 提供的商家驗證參數 (四位數字)',
+        ),
     );
 }
 
