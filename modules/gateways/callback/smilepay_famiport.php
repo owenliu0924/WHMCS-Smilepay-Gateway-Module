@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../init.php';
 require_once __DIR__ . '/../../../includes/gatewayfunctions.php';
 require_once __DIR__ . '/../../../includes/invoicefunctions.php';
 
-$gatewayModuleName = 'smilepay_ibon';
+$gatewayModuleName = 'smilepay_famiport';
 $gateway = getGatewayVariables($gatewayModuleName);
 if (!$gateway["type"])
     die("Module Not Activated");
