@@ -6,8 +6,10 @@ Smilepay module for WHMCS.
 <br>
 超商代繳
 <br>
-[WIP] 虛擬帳號 / ATM
+虛擬帳號 / ATM
 <br>
-[WIP] 7-11 ibon
+7-11 ibon
 <br>
-[WIP] FamiPort
+FamiPort
+
+- We encountered some issues with FamiPort, so it's not avaliable for use for now.
