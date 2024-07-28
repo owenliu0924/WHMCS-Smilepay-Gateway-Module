@@ -68,7 +68,7 @@ function smilepay_bank_link($params)
     $verify_key = $params['verify_key'];
     $testMode = $params['testMode'];
 
-    $amount = $params['amount'];
+    $amount = round($params['amount']);
     $invoiceId = $params['invoiceid'];
     $description = $params["description"];
     $returnUrl = $params['systemurl'] . '/modules/gateways/callback/smilepay_bank.php';
